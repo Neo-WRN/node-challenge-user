@@ -1,6 +1,10 @@
 class UserController {
 
-    handle(req, res, next) {
+    // registerPage(req, res, next) {
+    // }
+
+    createCustomer(req, res, next) {
+        
     }
 }
 
