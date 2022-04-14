@@ -1,15 +1,18 @@
 const express = require('express')
 const { validationResult } = require('express-validator')
-const { validateName } = require('../validators/customer-validator')
+const { validateName } = require('../validators/customer-validators')
 
 const router = express.Router()
 
-
 router.post(
-    '/customer', [validateName],
+    '/customer', validateName(),
     (req, res) => {
+        const errors = validationResult(req)
+        if(!errors.isEmpty()) {
+            return res.status(422).json({ errors: errors.mapped()})
+        }
         console.log(req.body)
-        res.end("success")
+        res.status(200).end('success')
 })
 
 
