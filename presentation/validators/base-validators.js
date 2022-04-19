@@ -3,10 +3,18 @@ const { body } = require('express-validator')
 
 const validateString = (field, field_name=field) => 
     body(field)
+    .trim()
     .escape()
     .isString()
     .withMessage(field_name + " must be a String")
+
+const validateDate = (field, field_name=field) =>
+    body(field)
+    // TODO Debug why toDate() was giving errors
+    .escape()
     .trim()
+    .isDate()
+    .withMessage(field_name + " must be a Date")
 
 const validateNumberCode = (field, field_name=field, min, max=min) =>
     validateString(field, field_name)
@@ -20,5 +28,6 @@ const validateNumberCode = (field, field_name=field, min, max=min) =>
 
 module.exports = {
     validateString,
+    validateDate,
     validateNumberCode,
 }
