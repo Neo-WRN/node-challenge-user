@@ -6,7 +6,7 @@ const router = express.Router()
 
 router.post(
     '/customer', 
-    [validateName(), validateEmail(), validateEmailConfirm(), validateCpf(),],
+    [validateName(), validateEmail(), validateEmailConfirm(), validateCpf(), validateCellphone()],
     (req, res) => {
         const errors = validationResult(req)
         if(!errors.isEmpty()) {

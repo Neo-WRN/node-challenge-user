@@ -1,6 +1,6 @@
 const { body } = require('express-validator')
 const req = require('express/lib/request')
-const { validateString } = require('./base-validators')
+const { validateString, validateNumberCode} = require('./base-validators')
 
 
 // TODO Test sanitizers later on
@@ -28,28 +28,33 @@ const validateEmailConfirm = () =>
         }
     })
 
+function isCpfValid(cpf) {
+    let cpfArray = Array.from(cpf, Number)
+    const confirmationDigits = cpfArray.slice(-2)
+    cpfArray = cpfArray.slice(0, -2)
+    const calcDigit = (start=1) => 
+        cpfArray.reduce((total, num, index) => 
+        {
+            total += (num*(index+start)) 
+            return total
+            //console.log(num+"x"+(start+index)+" = "+(num*(start+index))+" | Total: ",+total);
+        }, 0) % 11
+    
+    const firstDigit = calcDigit()
+    if (firstDigit !== confirmationDigits[0]) return false
+    cpfArray.push(firstDigit)
+    if (calcDigit(0) !== confirmationDigits[1]) return false
+    
+    return true
+}
 const validateCpf = () =>
-    validateString("cpf", "CPF")
-    .isLength({min: 11})
-    .withMessage("CPF must have at least 11 characters")
-    .isLength({max: 14})
-    .withMessage("CPF must have at maximum 14 characters")
-    .customSanitizer((value) => {return value.replace(/\D/g, "")})
-    .matches(/\d{11}$/)
-    .withMessage("CPF must be composed of 11 numbers")
+    validateNumberCode("cpf", "CPF", 11, 14)
+    .custom(async value => {
+        if (!isCpfValid(value)) return Promise.reject("CPF is not valid")
+    }).withMessage("CPF INVALIDO")
 
-// const validateCellphone = () =>
-//     validateString("cellphone", "Cellphone number")
-//     .isLength({min: 11})
-//     .withMessage("Cellphone number must have at least 11 characters")
-//     .isLength({max: 15})
-//     .withMessage("Cellphone number must have at maximum 15 characters")
-//     .customSanitizer((value) => {
-//         return value.replace(/\D/g, "0")
-//     })
-//     .matches(/.{11}$/).isLength({min: 11})
-//     .withMessage("Cellphone number must be composed of 11 numbers")
-
+const validateCellphone = () =>
+    validateNumberCode("cellphone", "Cellphone Number", 11, 15)
 
 module.exports = {
 
@@ -57,5 +62,5 @@ module.exports = {
     validateEmail,
     validateEmailConfirm,
     validateCpf,
-    // validateCellphone,
+    validateCellphone,
 }
