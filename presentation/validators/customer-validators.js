@@ -33,7 +33,7 @@ const validateCpf = () =>
     validateNumberCode("cpf", "CPF", 11, 14)
     .custom(async value => {
         if (!isCpfValid(value)) return Promise.reject("CPF is not valid")
-    }).withMessage("CPF INVALIDO")
+    }).withMessage("Cpf is not a valid Cpf")
 
 const validateCellphone = () =>
     validateNumberCode("cellphone", "Cellphone Number", 11, 15)
