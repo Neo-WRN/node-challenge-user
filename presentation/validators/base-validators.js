@@ -1,5 +1,7 @@
 const { body } = require('express-validator')
 
+//TODO Optimize operations
+
 validateBoolean = (field, field_name) =>
     body(field)
     .exists({checkNull: true})
@@ -33,12 +35,12 @@ const validateRequiredString = (field, field_name=field) =>
 const validateNumberCode = (field, field_name=field, min, max=min) =>
     validateString(field, field_name)
     .isLength({min: min})
-    .withMessage(field_name + " must have at least 11 characters")
+    .withMessage(field_name + " must have at least" + min + " characters")
     .isLength({max: max})
-    .withMessage(field_name + " must have at maximum 14 characters")
+    .withMessage(field_name + " must have at maximum" + max + "characters")
     .customSanitizer((value) => {return value.replace(/\D/g, "")})
     .matches(`^\\d{${min}}$`)
-    .withMessage(field_name + " must be composed of 11 numbers")
+    .withMessage(field_name + " must be composed of" + min + " numbers")
 
 module.exports = {
     validateBoolean,

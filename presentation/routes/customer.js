@@ -1,6 +1,6 @@
 const express = require('express')
 const { validationResult } = require('express-validator')
-const { validateName, validateEmail, validateEmailConfirm, validateCpf, validateCellphone, validateBirthdate, validateEmailSms, validateWhatsapp, validateCountry, validateCity } = require('../validators/customer-validators')
+const { validateName, validateEmail, validateEmailConfirm, validateCpf, validateCellphone, validateBirthdate, validateEmailSms, validateWhatsapp, validateCountry, validateCity, validatePostalCode } = require('../validators/customer-validators')
 
 const router = express.Router()
 
@@ -8,7 +8,8 @@ router.post(
     '/customer', 
     [validateName(), validateEmail(), validateEmailConfirm(), validateCpf(), 
         validateCellphone(), validateBirthdate(), validateEmailSms(), 
-        validateWhatsapp(), validateCountry(), validateCity()],
+        validateWhatsapp(), validateCountry(), validateCity(), validatePostalCode(),
+    ],
     (req, res) => {
         const errors = validationResult(req)
         if(!errors.isEmpty()) {

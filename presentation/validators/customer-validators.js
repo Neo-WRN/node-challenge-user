@@ -5,7 +5,8 @@ const { validateBoolean, validateDate, validateRequiredString, validateNumberCod
 
 
 // TODO Test sanitizers later on
-// TODO See what must and what mustn't be non-blocking/async and garantee it is. 
+// TODO See what must and what mustn't be non-blocking/async and garantee it is.
+// TODO Use API to see if address info is correct
 
 const validateName = () => 
     validateRequiredString("full_name", "Name")
@@ -52,6 +53,12 @@ const validateCountry = () =>
 const validateCity = () =>
     validateRequiredString("city", "City")
 
+const validatePostalCode = () =>
+    validateNumberCode("postal_code", "Postal Code", 8, 9)
+
+const validateAddress = () =>
+    validateRequiredString("address", "Address")
+
 
 module.exports = {
 
@@ -64,5 +71,7 @@ module.exports = {
     validateEmailSms,
     validateWhatsapp,
     validateCountry,
-    validateCity
+    validateCity,
+    validatePostalCode,
+    validateAddress,
 }
