@@ -1,7 +1,7 @@
 const { body } = require('express-validator')
 const req = require('express/lib/request')
 const { isCpfValid } = require('../../utils/validateData')
-const { validateBoolean, validateDate, validateRequiredString, validateNumberCode,} = require('./base-validators')
+const { validateBoolean, validateDate, validateRequiredString, validateNumber,} = require('./base-validators')
 
 
 // TODO Test sanitizers later on
@@ -30,13 +30,13 @@ const validateEmailConfirm = () =>
     })
 
 const validateCpf = () =>
-    validateNumberCode("cpf", "CPF", 11, 14)
+    validateNumber("cpf", "CPF", 11, 14)
     .custom(async value => {
         if (!isCpfValid(value)) return Promise.reject("CPF is not valid")
     }).withMessage("Cpf is not a valid Cpf")
 
 const validateCellphone = () =>
-    validateNumberCode("cellphone", "Cellphone Number", 11, 15)
+    validateNumber("cellphone", "Cellphone Number", 11, 15)
 
 const validateBirthdate = () =>
     validateDate("birthdate", "Birthdate")
@@ -54,7 +54,7 @@ const validateCity = () =>
     validateRequiredString("city", "City")
 
 const validatePostalCode = () =>
-    validateNumberCode("postal_code", "Postal Code", 8, 9)
+    validateNumber("postal_code", "Postal Code", 8, 9)
 
 const validateAddress = () =>
     validateRequiredString("address", "Address")

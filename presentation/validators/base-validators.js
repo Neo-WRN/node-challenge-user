@@ -32,20 +32,18 @@ const validateRequiredString = (field, field_name=field) =>
     .exists({checkNull: true, checkFalsy: true})
     .withMessage(field_name + " can't be empty")
 
-const validateNumberCode = (field, field_name=field, min, max=min) =>
+const validateNumber = (field, field_name=field, min, max=min) =>
     validateString(field, field_name)
-    .isLength({min: min})
-    .withMessage(field_name + " must have at least" + min + " characters")
     .isLength({max: max})
-    .withMessage(field_name + " must have at maximum" + max + "characters")
+    .withMessage(field_name + " must have at maximum " + max + " characters")
     .customSanitizer((value) => {return value.replace(/\D/g, "")})
     .matches(`^\\d{${min}}$`)
-    .withMessage(field_name + " must be composed of" + min + " numbers")
+    .withMessage(field_name + " must be composed of " + min + " numbers")
 
 module.exports = {
     validateBoolean,
     validateDate,
     validateString,
     validateRequiredString,
-    validateNumberCode,
+    validateNumber,
 }
