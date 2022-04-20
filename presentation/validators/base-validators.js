@@ -25,6 +25,11 @@ const validateString = (field, field_name=field) =>
     .isString()
     .withMessage(field_name + " must be a String")
 
+const validateRequiredString = (field, field_name=field) => 
+    validateString(field, field_name)
+    .exists({checkNull: true, checkFalsy: true})
+    .withMessage(field_name + " can't be empty")
+
 const validateNumberCode = (field, field_name=field, min, max=min) =>
     validateString(field, field_name)
     .isLength({min: min})
@@ -39,5 +44,6 @@ module.exports = {
     validateBoolean,
     validateDate,
     validateString,
+    validateRequiredString,
     validateNumberCode,
 }

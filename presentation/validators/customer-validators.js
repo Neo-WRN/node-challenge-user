@@ -1,22 +1,21 @@
 const { body } = require('express-validator')
 const req = require('express/lib/request')
 const { isCpfValid } = require('../../utils/validateData')
-const { validateBoolean, validateDate, validateString, validateNumberCode,} = require('./base-validators')
+const { validateBoolean, validateDate, validateRequiredString, validateNumberCode,} = require('./base-validators')
 
 
 // TODO Test sanitizers later on
 // TODO See what must and what mustn't be non-blocking/async and garantee it is. 
-// TODO Analyze repeated code and create functions for it
 
 const validateName = () => 
-    validateString("full_name", "Name")
+    validateRequiredString("full_name", "Name")
     .isLength({ min: 1 })
     .withMessage("Name must have at least one character")
     .isAlpha()
     .withMessage("Name can't have numbers or symbols")
 
 const validateEmail = (field="email", field_name="Email") =>
-    validateString(field, field_name)
+    validateRequiredString(field, field_name)
     .isEmail()
     .withMessage("Email must be a valid email")
     .normalizeEmail()
@@ -47,6 +46,13 @@ const validateEmailSms = () =>
 const validateWhatsapp = () =>
     validateBoolean("whatsapp", "Whatsapp")
 
+const validateCountry = () =>
+    validateRequiredString("country", "Country")
+
+const validateCity = () =>
+    validateRequiredString("city", "City")
+
+
 module.exports = {
 
     validateName,
@@ -57,4 +63,6 @@ module.exports = {
     validateBirthdate,
     validateEmailSms,
     validateWhatsapp,
+    validateCountry,
+    validateCity
 }
