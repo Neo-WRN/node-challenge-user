@@ -1,12 +1,14 @@
 const { body } = require('express-validator')
 
-
-const validateString = (field, field_name=field) => 
+validateBoolean = (field, field_name) =>
     body(field)
-    .trim()
+    .exists({checkNull: true})
+    .withMessage(field_name + " can't be null")
     .escape()
-    .isString()
-    .withMessage(field_name + " must be a String")
+    .trim()
+    .toBoolean()
+    .isBoolean()
+    .withMessage(field_name + " must be either true or false")
 
 const validateDate = (field, field_name=field) =>
     body(field)
@@ -15,6 +17,13 @@ const validateDate = (field, field_name=field) =>
     .toDate()
     .isISO8601()
     .withMessage(field_name + " must be a Date")
+
+const validateString = (field, field_name=field) => 
+    body(field)
+    .trim()
+    .escape()
+    .isString()
+    .withMessage(field_name + " must be a String")
 
 const validateNumberCode = (field, field_name=field, min, max=min) =>
     validateString(field, field_name)
@@ -27,7 +36,8 @@ const validateNumberCode = (field, field_name=field, min, max=min) =>
     .withMessage(field_name + " must be composed of 11 numbers")
 
 module.exports = {
-    validateString,
+    validateBoolean,
     validateDate,
+    validateString,
     validateNumberCode,
 }

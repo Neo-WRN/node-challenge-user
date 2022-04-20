@@ -1,7 +1,7 @@
 const { body } = require('express-validator')
 const req = require('express/lib/request')
 const { isCpfValid } = require('../../utils/validateData')
-const { validateString, validateNumberCode, validateDate} = require('./base-validators')
+const { validateBoolean, validateDate, validateString, validateNumberCode,} = require('./base-validators')
 
 
 // TODO Test sanitizers later on
@@ -41,6 +41,12 @@ const validateCellphone = () =>
 const validateBirthdate = () =>
     validateDate("birthdate", "Birthdate")
 
+const validateEmailSms = () =>
+    validateBoolean("email_sms", "Email/SMS")
+
+const validateWhatsapp = () =>
+    validateBoolean("whatsapp", "Whatsapp")
+
 module.exports = {
 
     validateName,
@@ -49,4 +55,6 @@ module.exports = {
     validateCpf,
     validateCellphone,
     validateBirthdate,
+    validateEmailSms,
+    validateWhatsapp,
 }
