@@ -29,7 +29,9 @@ const validateString = (field, field_name=field) =>
 
 const validateRequiredString = (field, field_name=field) => 
     validateString(field, field_name)
-    .exists({checkNull: true, checkFalsy: true})
+    .exists( {checkNull: true, checkFalsy: true} )
+    .withMessage(field_name + " can't be falsy")
+    .notEmpty({ignore_whitespace: true})
     .withMessage(field_name + " can't be empty")
 
 const validateNumber = (field, field_name=field, min, max=min) =>
