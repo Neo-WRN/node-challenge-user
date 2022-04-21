@@ -5,7 +5,6 @@ const { validateBoolean, validateDate, validateRequiredString, validateNumber,} 
 
 
 // TODO Test sanitizers later on
-// TODO See what must and what mustn't be non-blocking/async and garantee it is.
 // TODO Use API to see if address info is correct
 
 const validateName = () => 
