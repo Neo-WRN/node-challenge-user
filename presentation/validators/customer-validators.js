@@ -59,19 +59,12 @@ const validatePostalCode = () =>
 const validateAddress = () =>
     validateRequiredString("address", "Address")
 
+const customerValidators = [
+    validateName(), validateEmail(), validateEmailConfirm(), validateCpf(), 
+    validateCellphone(), validateBirthdate(), validateEmailSms(), validateWhatsapp(), 
+    validateCountry(), validateCity(), validatePostalCode(), validateAddress()]
 
 module.exports = {
 
-    validateName,
-    validateEmail,
-    validateEmailConfirm,
-    validateCpf,
-    validateCellphone,
-    validateBirthdate,
-    validateEmailSms,
-    validateWhatsapp,
-    validateCountry,
-    validateCity,
-    validatePostalCode,
-    validateAddress,
+    customerValidators
 }
