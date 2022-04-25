@@ -1,7 +1,5 @@
-const { body } = require('express-validator')
-const req = require('express/lib/request')
-const { isCpfValid } = require('../../utils/validateData')
-const { validateBoolean, validateDate, validateRequiredString, validateNumber,} = require('./base-validators')
+import isCpfValid from '../../utils/validateData.js'
+import { validateBoolean, validateDate, validateRequiredString, validateNumber } from './base-validators.js'
 
 
 // TODO Test sanitizers later on
@@ -31,6 +29,7 @@ const validateEmailConfirm = () =>
 const validateCpf = () =>
     validateNumber("cpf", "CPF", 11, 14)
     .custom(async value => {
+        console.log("isCpfValid -| value = " + value + " | result = ", !isCpfValid(value))
         if (!isCpfValid(value)) return Promise.reject("CPF is not valid")
     }).withMessage("Cpf is not a valid Cpf")
 
@@ -63,7 +62,4 @@ const customerValidators = [
     validateCellphone(), validateBirthdate(), validateEmailSms(), validateWhatsapp(), 
     validateCountry(), validateCity(), validatePostalCode(), validateAddress()]
 
-module.exports = {
-
-    customerValidators
-}
+export default customerValidators

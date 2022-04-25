@@ -1,5 +1,5 @@
-const { validationResult } = require('express-validator')
-const {Users} = require('../../domain/user/mocks/UserMock')
+import { validationResult } from 'express-validator'
+import Users from '../../domain/user/mocks/UserMock.js'
 class UserController {
 
     // registerPage(req, res, next) {
@@ -24,4 +24,4 @@ class UserController {
     }
 }
 
-module.exports = new UserController()
+export default new UserController().createCustomer

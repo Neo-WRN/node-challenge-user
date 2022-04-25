@@ -18,6 +18,6 @@ const isCpfValid = (cpf) => {
     return true
 }
 
-module.exports = {
+export default {
     isCpfValid
 }
