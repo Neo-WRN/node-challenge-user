@@ -29,7 +29,7 @@ const validateEmailConfirm = () =>
 const validateCpf = () =>
     validateNumber("cpf", "CPF", 11, 14)
     .custom(async value => {
-        console.log("isCpfValid -| value = " + value + " | result = ", !isCpfValid(value))
+        console.log(typeof validateAddress)
         if (!isCpfValid(value)) return Promise.reject("CPF is not valid")
     }).withMessage("Cpf is not a valid Cpf")
 

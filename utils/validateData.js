@@ -14,10 +14,8 @@ const isCpfValid = (cpf) => {
     if (firstDigit !== confirmationDigits[0]) return false
     cpfArray.push(firstDigit)
     if (calcDigit(0) !== confirmationDigits[1]) return false
-    
+
     return true
 }
 
-export default {
-    isCpfValid
-}
+export default isCpfValid
