@@ -53,10 +53,10 @@ const validateCity = () =>
 
 const validatePostalCode = () =>
     validateNumber("postal_code", "Postal Code", 8, 9)
-    .custom(async (value, {req, res}) => {
+    .custom(async (value) => {
         const cepRes = 
             JSON.parse(await (
-                await got("https://cep.awesomeapi.com.br/json/89031490", {throwHttpErrors: false})
+                await got(`https://cep.awesomeapi.com.br/json/${value}`, {throwHttpErrors: false})
             ).body)
 
         if (typeof cepRes.status !== 'undefined') return Promise.reject()
