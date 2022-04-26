@@ -1,9 +1,9 @@
+import got from 'got'
 import isCpfValid from '../../utils/validateData.js'
 import { validateBoolean, validateDate, validateRequiredString, validateNumber } from './base-validators.js'
 
 
 // TODO Test sanitizers later on
-// TODO Use API to see if address info is correct
 
 const validateName = () => 
     validateRequiredString("full_name", "Name")
@@ -29,7 +29,7 @@ const validateEmailConfirm = () =>
 const validateCpf = () =>
     validateNumber("cpf", "CPF", 11, 14)
     .custom(async value => {
-        console.log(typeof validateAddress)
+        //console.log(typeof validateAddress)
         if (!isCpfValid(value)) return Promise.reject("CPF is not valid")
     }).withMessage("Cpf is not a valid Cpf")
 
@@ -53,6 +53,15 @@ const validateCity = () =>
 
 const validatePostalCode = () =>
     validateNumber("postal_code", "Postal Code", 8, 9)
+    .custom(async (value, {req, res}) => {
+        const cepRes = 
+            JSON.parse(await (
+                await got("https://cep.awesomeapi.com.br/json/89031490", {throwHttpErrors: false})
+            ).body)
+
+        if (typeof cepRes.status !== 'undefined') return Promise.reject()
+    })
+    .withMessage("CEP is not valid")
 
 const validateAddress = () =>
     validateRequiredString("address", "Address")
