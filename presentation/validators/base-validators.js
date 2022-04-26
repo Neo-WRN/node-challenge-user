@@ -6,11 +6,8 @@ const validateBoolean = (field, field_name) =>
     body(field)
     .exists({checkNull: true})
     .withMessage(field_name + " can't be null")
-    .escape()
-    .trim()
-    .toBoolean()
     .isBoolean()
-    .withMessage(field_name + " must be either true or false")
+    .withMessage(field_name + " must be a boolean value")
 
 const validateDate = (field, field_name=field) =>
     body(field)
