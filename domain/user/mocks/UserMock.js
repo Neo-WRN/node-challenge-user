@@ -1,5 +1,5 @@
 const Users = []
-module.exports = {Users}
+export default Users
 // class UserMock {
 //     //TODO See if there is a better way to do this constructor
 //     //TODO See if the properties should be private (and then acessed or used though a get and set)

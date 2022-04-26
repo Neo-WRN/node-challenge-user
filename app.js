@@ -1,14 +1,14 @@
-const express = require('express');
-const helmet = require('helmet')
-const routes = require('./presentation/routes/Routes')
+import express, { json, urlencoded } from 'express';
+import helmet from 'helmet';
+import routes from './presentation/routes/Routes.js';
 
 const app = express();
 app.use(helmet())
-app.use(express.json())
-app.use(express.urlencoded({ extended: true }))
+app.use(json())
+app.use(urlencoded({ extended: true }))
 app.use(routes)
 
 // Configuration files
 // Ex: require("./path/to/file")(express, app)
 
-module.exports = app;
+export default app;

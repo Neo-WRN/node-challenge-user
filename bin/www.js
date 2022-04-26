@@ -1,11 +1,11 @@
-const app = require('../app')
-const dotenv = require('dotenv')
-const http = require('http')
+import app from '../app.js'
+import { config } from 'dotenv'
+import { createServer } from 'http'
 
-dotenv.config( {path: './config/config.env'})
+config( {path: './config/config.env'})
 const port = process.env.PORT || 3000
 app.set("port", port)
-const server = http.createServer(app)
+const server = createServer(app)
 server.listen(port)
 
 server.on("error", onError)

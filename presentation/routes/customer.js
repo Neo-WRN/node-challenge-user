@@ -1,8 +1,9 @@
-const express = require('express')
-const UserController = require('../controllers/UserController')
-const { customerValidators } = require('../validators/customer-validators')
+import { Router } from 'express'
+import app from '../../app.js'
+import createCustomer from '../controllers/UserController.js' //! a
+import customerValidators from '../validators/customer-validators.js'
 
-const router = express.Router()
-router.post('/', customerValidators, UserController.createCustomer)
+const router = Router()
+router.post('/', customerValidators, createCustomer)
 
-module.exports = router
+export default router

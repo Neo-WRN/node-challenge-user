@@ -1,16 +1,13 @@
-const { body } = require('express-validator')
+import { body } from 'express-validator'
 
 //TODO Optimize operations
 
-validateBoolean = (field, field_name) =>
+const validateBoolean = (field, field_name) =>
     body(field)
     .exists({checkNull: true})
     .withMessage(field_name + " can't be null")
-    .escape()
-    .trim()
-    .toBoolean()
     .isBoolean()
-    .withMessage(field_name + " must be either true or false")
+    .withMessage(field_name + " must be a boolean value")
 
 const validateDate = (field, field_name=field) =>
     body(field)
@@ -42,7 +39,7 @@ const validateNumber = (field, field_name=field, min, max=min) =>
     .matches(`^\\d{${min}}$`)
     .withMessage(field_name + " must be composed of " + min + " numbers")
 
-module.exports = {
+export {
     validateBoolean,
     validateDate,
     validateString,
